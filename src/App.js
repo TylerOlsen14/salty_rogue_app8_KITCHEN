@@ -3,22 +3,37 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  state = {
+    records: [],
+  }
+
+  getRecords = async () => {
+    await fetch('http://localhost:5000/')
+      .then(response => {
+        return response.json();
+      })
+      .then(data => 
+        this.setState({ records: data }))
+      .catch(error => console.log('Error:', error))
+      }
+
+  componentWillMount() {
+    this.getRecords()
+  }
+
+        
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {logo}
+      <div>
+       {this.state.records.map((record, _id) => (
+         <div>
+           <h5>Client Name: {record.ClientName}</h5>
+           <h5>Client Phone Number: {record.ClientPhonenNumber}</h5>
+           <h5>Notes: {record.ClientNotes}</h5>
+         </div>
+       ))} 
+      </div>
     </div>
   );
 }
