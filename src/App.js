@@ -17,7 +17,7 @@ function App() {
       .catch(error => console.log('Error:', error))
       }
 
-  componentWillMount() {
+  componentWillMount = () => {
     this.getRecords()
   }
 
